@@ -1,16 +1,56 @@
-//do everything whe the document is loaded
-$(function(e){
-    //capture the keyup event
-    $(document).on("keyup","input",function(e){
-        let un=$("#txtUsername").val();
-        let pw=$("txtPassword").val();
-        if(un.trim()!=="" && pw.trim()!=="")
-        {
-            $("#btnLogin").removeClass("inactivecolor");
-            $("#btnLogin").addClass("activecolor");
-        }else{
-            $("#btnLogin").removeClass("activecolor");
-            $("#btnLogin").addClass("inactivecolor");
+function tryLogin() {
+    let un = $("#txtUsername").val();
+    let pw = $("#txtPassword").val();
+
+    if (un.trim() !== "" && pw.trim() !== "") {
+        $.ajax({
+            url: "ajaxhandler/loginAjax.php",
+            type: "POST",
+            dataType: "json",
+            data: {
+                user_name: un,
+                password: pw,
+                action: "verifyUser"
+            },
+            beforeSend: function () {
+                // Optional: show loader or disable button
+            },
+            success: function (rv) {
+                if (rv.status === "ALL OK") {
+                    alert("Login successful!");
+                    window.location.href = "attendance.php"; // ✅ Your desired page
+                } else {
+                    alert(rv.status);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("AJAX Error: " + status + "\n" + error);
+            }
+        });
+    } else {
+        alert("Username and password must not be empty.");
+    }
+}
+
+$(document).ready(function () {
+    $(document).on("keyup", "input", function () {
+        let un = $("#txtUsername").val();
+        let pw = $("#txtPassword").val();
+
+        if (un.trim() !== "" && pw.trim() !== "") {
+            $("#btnLogin")
+                .removeClass("inactivecolor")
+                .addClass("activecolor")
+                .prop("disabled", false);
+        } else {
+            $("#btnLogin")
+                .removeClass("activecolor")
+                .addClass("inactivecolor")
+                .prop("disabled", true);
         }
+    });
+
+    $("#btnLogin").on("click", function () {
+        tryLogin();
     });
 });
