@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/loader.css">
     <title>Login Page</title>
 </head>
 <body>
@@ -11,17 +12,24 @@
         <div class="inputgroup topmarginlarge">
             <input type="text" id="txtUsername" required>
             <label for="txtUsername" id="lblUsername">USERNAME</label>
-
         </div>
+
         <div class="inputgroup topmarginlarge">
             <input type="password" id="txtPassword" required>
             <label for="txtPassword" id="lblPassword">PASSWORD</label>
         </div>
 
-        <div class="divcallforaction">
-            <button class="btnlogin inactivecolor" id="btnLogin">Login</button>
-
+        <div class="divcallforaction topmarginlarge">
+            <button class="btnlogin inactivecolor" id="btnLogin" disabled>Login</button>
         </div>
+
+        <div class="diverror topmarginlarge" id="diverror">
+            <label class="errormessage" id="errormessage">ERROR GOES HERE</label>
+        </div>
+    </div>
+    <div class="lockscreen" id="lockscreen">
+        <div class="spinner" id="spinner"></div>
+        <label class="lblwait topmargin" id="lblwait">PLEASE WAIT</label>
     </div>
 
     <script src="js/jquery.js"></script>
