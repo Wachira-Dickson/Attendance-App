@@ -14,13 +14,19 @@ function tryLogin() {
             },
             beforeSend: function () {
                 // Optional: show loader or disable button
+                    $("#diverror").removeClass("applyerrordiv");
+                    $("#lockscreen").addClass("applylockscreen");
+                    //$("#errormessage").text("");
             },
             success: function (rv) {
                 if (rv.status === "ALL OK") {
                     alert("Login successful!");
                     window.location.href = "attendance.php"; // ✅ Your desired page
                 } else {
-                    alert(rv.status);
+                    //alert(rv.status);
+                    $("#diverror").addClass("applyerrordiv");
+                    $("#lockscreen").addClass("applylockscreen");
+                    $("#errormessage").text(rv['status']);
                 }
             },
             error: function (xhr, status, error) {
@@ -34,6 +40,9 @@ function tryLogin() {
 
 $(document).ready(function () {
     $(document).on("keyup", "input", function () {
+        $("#diverror").removeClass("applyerrordiv");
+        //$("#errormessage").text("");
+
         let un = $("#txtUsername").val();
         let pw = $("#txtPassword").val();
 
